@@ -8,9 +8,9 @@ A command line application to manage a company’s employee database using Node.
 Clone the repo, run npm install to get dependencies. Run npm start to connect to employee tracker database. 
 
 ## Technologies
-Node.js
-MySQL2
-Inquirer package
+* Node.js
+* MySQL2
+* Inquirer package
 
 ## Usage
 Use the application to manage employee database
@@ -20,3 +20,7 @@ Use the application to manage employee database
 ## Screenshot
 
 ![alt text](asset/images/Capture1.PNG)
+
+![alt text](asset/images/Capture2.PNG)
+
+![alt text](asset/images/Capture3.PNG)
