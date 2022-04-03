@@ -55,6 +55,62 @@ const viewAllEmployees = () => {
     promptData();
   });
 }
+const addDepartment = () => {
+  inquirer.prompt([{
+    type: 'input',
+    name: 'deptName',
+    message: 'What is the name of the new depertment?'
+  }
+])
+.then((newDept) => {
+  const addADept = `INSERT INTO department (dept_name) VALUES ('${newDept.deptName}');`
+  db.query(addADept, (err, result) => {
+    if (err) {
+      console.log(`There was an error  ${err}`);
+      return;
+    }
+    viewAllDepartments();
+    // console.table(result);
+    console.log(`
+    `);
+    promptData();
+  });
+})
+}
+
+const addRole = () => {
+  inquirer.prompt([{
+    type: 'input',
+    name: 'roleName',
+    message: 'What is the title of the new role?'
+  },
+  {
+    type: 'list',
+    name: 'roleDept',
+    message: 'What department does the role belong?',
+    choices:[1, 2, 3, 4]
+  },
+  {
+    type: 'input',
+    name: 'roleSalary',
+    message: 'What is the salary for the new role?'
+  }
+])
+.then((newRole) => {
+  const addARole = `INSERT INTO roles (title, department_id, salary) VALUES ('${newRole.roleName}', '${newRole.roleDept}', '${newRole.roleSalary}');`
+  db.query(addARole, (err, result) => {
+    if (err) {
+      console.log(`There was an error  ${err}`);
+      return;
+    }
+    viewAllRoles();
+    // console.table(result);
+    console.log(`
+    `);
+    promptData();
+  });
+})
+}
 
 const promptData = () => {
 // function promptData() {
@@ -87,6 +143,13 @@ const promptData = () => {
     if (choice.menuOptions === 'View All Employees') {
       viewAllEmployees();
     }
+    if (choice.menuOptions === 'Add A Department') {
+      addDepartment();
+    }
+    if (choice.menuOptions === 'Add A Role') {
+      addRole();
+    }
+
   })
 }
 
