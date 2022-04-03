@@ -2,6 +2,7 @@ const db = require('./db/connection');
 const cTable = require('console.table');
 const inquirer = require('inquirer');
 
+// inquirer code starts
 //console.clear;
 
 const quitData = () => {
@@ -23,6 +24,35 @@ const viewAllDepartments = () => {
     `);
     promptData();
 
+  });
+}
+
+const viewAllRoles = () => {
+  // const viewAllRoles = `SELECT * FROM roles`//
+  const viewAllRoles = `SELECT roles.id, roles.title, roles.salary, department.dept_name FROM roles LEFT JOIN department ON roles.department_id = department.id`
+  db.query(viewAllRoles, (err, result) => {
+    if (err) {
+      console.log(`There was an error  ${err}`);
+      return;
+    }
+    console.table(result);
+    console.log(`
+    `);
+    promptData();
+  });
+}
+
+const viewAllEmployees = () => {
+  const viewAllEmployees = `SELECT * FROM employee`
+  db.query(viewAllEmployees, (err, result) => {
+    if (err) {
+      console.log(`There was an error  ${err}`);
+      return;
+    }
+    console.table(result);
+    console.log(`
+    `);
+    promptData();
   });
 }
 
@@ -51,7 +81,12 @@ const promptData = () => {
     if (choice.menuOptions === 'View All Departments') {
       viewAllDepartments();
     }
-
+    if (choice.menuOptions === 'View All Roles') {
+      viewAllRoles();
+    }
+    if (choice.menuOptions === 'View All Employees') {
+      viewAllEmployees();
+    }
   })
 }
 
