@@ -111,6 +111,41 @@ const addRole = () => {
   });
 })
 }
+const addEmployee = () => {
+  inquirer.prompt([{
+    type: 'input',
+    name: 'fName',
+    message: 'What is the first name of the new employee?'
+  },
+  {
+    type: 'input',
+    name: 'lName',
+    message: 'What is the last name of the new employee?'
+  },
+  {
+    type: 'input',
+    name: 'empRole',
+    message: 'What is the role of the new employee?'
+  }
+])
+.then((newEmp) => {
+  const addAnEmployee = `INSERT INTO employee (first_name, last_name, role_id) VALUES ('${newEmp.fName}', '${newEmp.lName}', '${newEmp.empRole}');`
+  db.query(addAnEmployee, (err, result) => {
+    if (err) {
+      console.log(`There was an error  ${err}`);
+      return;
+    }
+    viewAllEmployees();
+    // console.table(result);
+    console.log(`
+    `);
+    promptData();
+  });
+})
+}
+
+// const updateEmployee = () => {
+ // }
 
 const promptData = () => {
 // function promptData() {
@@ -149,6 +184,12 @@ const promptData = () => {
     if (choice.menuOptions === 'Add A Role') {
       addRole();
     }
+    if (choice.menuOptions === 'Add An Employee') {
+      addEmployee();
+    }
+    // else if (choice.menuOptions === 'Update an employee role') {
+    //   updateEmployee();
+    // }
 
   })
 }
